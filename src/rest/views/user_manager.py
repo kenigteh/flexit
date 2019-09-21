@@ -11,11 +11,8 @@ class UserManager(APIView):
         data = request.data
         serializer = UserSerializer(data=data)
         if serializer.is_valid():
-            try:
-                serializer.save()
-                return Response({'status': 'ok'}, status=201)
-            except:
-                return Response({'status': 'User exist'}, status=400)
+            serializer.save()
+            return Response({'status': 'ok'}, status=201)
         return Response({'status': 'Bad data!'}, status=400)
 
     @staticmethod
