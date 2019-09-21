@@ -6,7 +6,8 @@ from rest.models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['login', 'password', 'status']
+        fields = ['login', 'status']
+        read_only_fields = ['password']
 
     def check_user(self, validated_data):
         try:
