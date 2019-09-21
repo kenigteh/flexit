@@ -22,12 +22,10 @@ class UserManager(APIView):
         login = request.headers.get('login')
         password = request.headers.get('password')
         try:
-            user = User.objects.get(login=login)
+            user = User.objects.get(login=login, password=password)
             data = {
                 'login': user.login,
-                'password': user.password,
             }
-            serializer = UserSerializer(user)
             return Response(data, status=200)
         except:
             return Response({'status': 'User not found'}, status=400)
