@@ -19,8 +19,9 @@ class UserManager(APIView):
 
     @staticmethod
     def get(request):
-        login = request.META['login']
-        password = request.META['password']
+        login = request.headers.get('login')
+        password = request.headers.get('password')
+        print(login, password)
         user = User.objects.get(login=login, password=password)
 
         serializer = UserSerializer(user)
