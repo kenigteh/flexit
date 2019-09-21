@@ -14,6 +14,6 @@ class MyReqDecoder:
         return response
 
     def process_template_response(self, request, response):
-        if isinstance(response, Response):
-            response.data['status'] = 'Xer'
+        # if isinstance(response, Response):
+        #     response.data['status'] = 'Xer'
         return response

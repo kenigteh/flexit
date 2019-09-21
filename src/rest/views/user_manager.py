@@ -11,12 +11,18 @@ class UserManager(APIView):
         data = request.data
         serializer = UserSerializer(data=data)
         if serializer.is_valid():
-            serializer.save()
-            return Response({'status': 'ok'}, status=201)
+            try:
+                serializer.save()
+                return Response({'status': 'ok'}, status=201)
+            except:
+                return Response({'status': 'User exist'}, status=400)
         return Response({'status': 'Bad data!'}, status=400)
 
     @staticmethod
-    def update(request):
-        data = request.data
-        serializer = UserSerializer(data)
+    def get(request):
+        login = request.data.get('login')
+        password = request.data.get('password')
+        user = User.objects.get(login=login, password=password)
+
+        serializer = UserSerializer(user)
         return Response(serializer.data, status=200)
