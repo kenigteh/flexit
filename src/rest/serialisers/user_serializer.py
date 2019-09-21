@@ -8,9 +8,19 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['login', 'password', 'status']
 
+    def check_user(self, validated_data):
+        try:
+            User.objects.get(login=validated_data.get('login'))
+            return False
+        except:
+            return True
+
     def create(self, validated_data):
-        user = User.objects.create(**validated_data)
-        return user
+        if self.check_user(validated_data):
+            user = User.objects.create(**validated_data)
+            return user
+        else:
+            return False
 
     def update(self, instance, validated_data):
         instance.email = validated_data.get('email', instance.username)
