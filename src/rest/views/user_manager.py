@@ -22,7 +22,7 @@ class UserManager(APIView):
         login = request.headers.get('login')
         password = request.headers.get('password')
         try:
-            user = User.objects.get(login=login, password=password)
+            user = User.objects.get(login='e', password='e')
             serializer = UserSerializer(user)
             return Response(serializer.data, status=200)
         except:
